@@ -6,6 +6,6 @@ class User < ApplicationRecord
   has_many :viewing_parties, through: :party_users
 
   def is_host?(party_id)
-    PartyUser.find_by(user_id: self.id, viewing_party_id: party_id).host
+    PartyUser.find_by(user_id: id, viewing_party_id: party_id).host
   end
 end
