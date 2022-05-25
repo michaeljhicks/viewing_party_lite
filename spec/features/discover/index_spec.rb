@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Discover Movies', type: :feature do
   before do
-    @user1 = User.create!(name: "Billy", email: "billy.zane@gmail.com")
-    @user2 = User.create!(name: "Johnny", email: "johnny.b@gmail.com")
+    @user1 = User.create!(name: "Billy", email: "billy.zane@gmail.com", password: 'test', password_confirmation: 'test')
+    @user2 = User.create!(name: "Johnny", email: "johnny.b@gmail.com", password: 'test', password_confirmation: 'test')
 
     visit user_discover_index_path(@user1)
   end

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'create a new viewing party' do
   before do
-    @user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com')
-    @user2 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com')
+    @user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com', password: 'test', password_confirmation: 'test')
+    @user2 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com', password: 'test', password_confirmation: 'test')
     @movie_id = 550
     visit user_movie_path(@user,@movie_id)
 

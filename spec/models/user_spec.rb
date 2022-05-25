@@ -14,8 +14,8 @@ RSpec.describe User do
 
   describe 'instance methods' do
     it '.is_host?(party_id) returns true or false if the user is host' do
-      user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com')
-      user2 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com')
+      user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com', password: 'test', password_confirmation: 'test')
+      user2 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com', password: 'test', password_confirmation: 'test')
       party = ViewingParty.create!(movie_title: 'Mad Max', duration: 100, date: '2022/10/20', start_time: '7:00')
 
       PartyUser.create!(user_id: user.id, viewing_party_id: party.id, host: true)
