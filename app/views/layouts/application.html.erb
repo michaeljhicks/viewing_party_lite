@@ -4,12 +4,15 @@
     <title>ViewingPartyLite</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+      <p><%= type.to_s.capitalize %>: <%= msg %></p>
+    <% end %>
+    <%= link_to 'Landing Page', '/' %>
     <%= yield %>
   </body>
 </html>
