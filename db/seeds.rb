@@ -10,8 +10,8 @@ ViewingParty.destroy_all
 User.destroy_all
 
 
-@user1 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com')
-@user2 = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com')
+@user1 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com', password: 'test', password_confirmation: 'test')
+@user2 = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com', password: 'test', password_confirmation: 'test')
 
 @vp1 = ViewingParty.create!(date: '2022/05/11', start_time: '12:00', duration: 120, movie_title: 'Star Wars')
 @vp1a = ViewingParty.create!(date: '2022/05/11', start_time: '15:00', duration: 120, movie_title: 'Star Wars Empire Strikes Back')
