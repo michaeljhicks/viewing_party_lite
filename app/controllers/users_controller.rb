@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :get_user, only: [:show]
+  before_action :get_user, only: %i[show]
 
   def new
   end
@@ -19,11 +19,32 @@ class UsersController < ApplicationController
     end
   end
 
-  private
-    def get_user
-      @user = User.find(params[:id])
-    end
-    def user_params
-      params.permit(:name, :email, :password, :password_confirmation)
+  def login_form
+  end
+
+  def login_auth
+    user = User.find_by(email: params[:email])
+
+    if user
+      if user.authenticate(params[:password])
+        redirect_to "/users/#{user.id}"
+      else
+        flash[:notice] = 'invalid password'
+        render :login_form
+      end
+
+    else
+      flash[:notice] = 'invalid email'
+      render :login_form
     end
   end
+
+  private
+
+  def get_user
+    @user = User.find(params[:id])
+  end
+  def user_params
+    params.permit(:name, :email, :password, :password_confirmation)
+  end
+end
