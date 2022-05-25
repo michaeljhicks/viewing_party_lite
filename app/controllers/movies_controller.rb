@@ -15,6 +15,6 @@ class MoviesController < ApplicationController
 
   private
     def get_user
-      @user = User.find(params[:user_id])
+      @user = User.find(session[:user_id])
     end
 end

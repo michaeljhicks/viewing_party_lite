@@ -13,7 +13,7 @@ RSpec.describe 'The User login page' do
       fill_in :password, with: 'test'
       click_button 'Login'
 
-      expect(current_path).to eq("/users/#{@user.id}")
+      expect(current_path).to eq(dashboard_path)
     end
     it 'email is incorrect' do
       fill_in :email, with: '12454'
@@ -22,7 +22,7 @@ RSpec.describe 'The User login page' do
 
 
       expect(page).to have_content("User Login")
-      expect(page).to have_content("Notice: invalid email")
+      expect(page).to have_content("Notice: invalid entry")
     end
 
     it 'password is incorrect' do
@@ -31,7 +31,7 @@ RSpec.describe 'The User login page' do
       click_button 'Login'
 
       expect(page).to have_content('User Login')
-      # expect(page).to have_content('Notice: invalid password')
+      expect(page).to have_content('Notice: invalid entry')
     end
   end
 end

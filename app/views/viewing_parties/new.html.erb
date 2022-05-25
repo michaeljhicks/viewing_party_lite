@@ -1,6 +1,6 @@
 <h1>Create a Movie Party for <%= params[:movie_title] %></h1>
 
-<%= form_with url: user_path(@user), local: true do |form|  %>
+<%= form_with url: dashboard_path, local: true do |form|  %>
   <%= hidden_field_tag :movie_title, params[:movie_title] %>
   <%= form.label :duration %>
   <%= form.number_field :duration, min: params[:duration], value: params[:duration] %>

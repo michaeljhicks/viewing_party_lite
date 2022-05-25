@@ -1,6 +1,6 @@
 require 'rails_helper'
 RSpec.describe 'User dashboard' do
-  before do
+  before(:each) do
     @user1 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com', password: 'test', password_confirmation: 'test')
     @user2 = User.create!(name: 'Jackie', email: 'jackie.joyner112@gmail.com', password: 'test', password_confirmation: 'test')
 
@@ -13,7 +13,12 @@ RSpec.describe 'User dashboard' do
     @user1.party_users.create!(viewing_party_id: @vp1a.id, host: true )
     @user2.party_users.create!(viewing_party_id: @vp2.id, host: true )
     @user2.party_users.create!(viewing_party_id: @vp1.id, host: false )
-    visit user_path(@user1)
+    visit '/'
+    click_on 'Login'
+    fill_in :email, with: @user1.email
+    fill_in :password, with: @user1.password
+    click_on 'Login'
+    visit dashboard_path
   end
   it 'Displays user dashboard attributes on the page' do
     expect(page).to have_content("Billy's dashboard")
