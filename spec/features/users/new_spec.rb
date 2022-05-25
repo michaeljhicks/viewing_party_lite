@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe 'Creating a user' do
+RSpec.describe 'Creating a user' do
   before :each do
     visit '/register'
     @phil = User.create!(name: 'Philly Steak', email: 'philly.steak@gmail.com')

@@ -1,5 +1,5 @@
 require 'rails_helper'
-describe 'User dashboard' do
+RSpec.describe 'User dashboard' do
   before do
     @user1 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com')
     @user2 = User.create!(name: 'Jackie', email: 'jackie.joyner112@gmail.com')

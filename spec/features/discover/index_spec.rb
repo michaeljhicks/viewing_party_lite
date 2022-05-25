@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Discover Movies', type: :feature do
+RSpec.describe 'Discover Movies', type: :feature do
   before do
     @user1 = User.create!(name: "Billy", email: "billy.zane@gmail.com")
     @user2 = User.create!(name: "Johnny", email: "johnny.b@gmail.com")
@@ -11,8 +11,9 @@ describe 'Discover Movies', type: :feature do
   it 'Displays a header' do
     expect(page).to have_content("Discover Movies")
   end
-  it 'displays a top 20 movies button that routes to the discover page' do
-    click_button 'Top 20 Movies'
+
+  it 'displays a top movies button that routes to the discover page' do
+    click_button 'Top Rated Movies'
 
     expect(current_path).to eq("/users/#{@user1.id}/movies")
   end
