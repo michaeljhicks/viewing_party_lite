@@ -1,28 +1,28 @@
-class MovieService
-  def get_url(url)
-    response = Faraday.get(url)
-    JSON.parse(response.body, symbolize_names: true)
-  end
+class MovieService < ApplicationService
   def top_movies
-    page1 = get_url("https://api.themoviedb.org/3/movie/popular?api_key=#{ENV['MOVIE_API_KEY']}")[:results]
-    page2 = get_url("https://api.themoviedb.org/3/movie/popular?api_key=#{ENV['MOVIE_API_KEY']}&page=2")[:results]
-    page1 + page2
+    page1 = conn.get('/3/movie/popular')
+    page2 = conn.get('/3/movie/popular?page=2')
+    parse_json(page1)[:results] + parse_json(page2)[:results]
   end
+
   def movies_by_query(search)
-    page1 = get_url("https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_API_KEY']}&query=#{search}")[:results]
-    page2 = get_url("https://api.themoviedb.org/3/search/movie?api_key=#{ENV['MOVIE_API_KEY']}&query=#{search}&page=2")[:results]
-    page1 + page2
+    page1 = conn.get("/3/search/movie?query=#{search}")
+    page2 = conn.get("/3/search/movie?query=#{search}&page=2")
+    parse_json(page1)[:results] + parse_json(page2)[:results]
   end
 
   def movie_details(movie_id)
-    get_url("https://api.themoviedb.org/3/movie/#{movie_id}?api_key=#{ENV['MOVIE_API_KEY']}")
+    response = conn.get("/3/movie/#{movie_id}")
+    parse_json(response)
   end
 
   def cast(movie_id)
-    get_url("https://api.themoviedb.org/3/movie/#{movie_id}/credits?api_key=#{ENV['MOVIE_API_KEY']}")[:cast]
+    response = conn.get("/3/movie/#{movie_id}/credits")
+    parse_json(response)[:cast]
   end
 
   def reviews(movie_id)
-    get_url("https://api.themoviedb.org/3/movie/#{movie_id}/reviews?api_key=#{ENV['MOVIE_API_KEY']}")[:results]
+    response = conn.get("/3/movie/#{movie_id}/reviews")
+    parse_json(response)[:results]
   end
 end
