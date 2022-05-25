@@ -4,19 +4,21 @@ class Movie
               :vote_average,
               :poster_path,
               :runtime,
+              :runtime_mins,
               :overview,
               :cast,
               :genres,
               :reviews
 
-  def initialize(data, credits = [], reviews = [])
-    @id = data[:id]
-    @title = data[:title]
-    @vote_average = data[:vote_average]
-    @poster_path = data[:poster_path]
-    @runtime = formatted_duration(data[:runtime].to_i)
-    @overview = data[:overview]
-    @genres = data[:genres]
+  def initialize(details, credits = [], reviews = [])
+    @id = details[:id]
+    @title = details[:title]
+    @vote_average = details[:vote_average]
+    @poster_path = details[:poster_path]
+    @runtime = formatted_duration(details[:runtime].to_i)
+    @runtime_mins = details[:runtime]
+    @overview = details[:overview]
+    @genres = details[:genres]
     @cast = credits[0..9]
     @reviews = reviews
   end
@@ -24,4 +26,5 @@ class Movie
   def formatted_duration(total_minute)
     "#{ total_minute / 60 } hours #{ total_minute % 60 } minutes"
   end
+
 end
