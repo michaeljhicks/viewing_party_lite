@@ -1,4 +1,5 @@
 <h1>Create a Movie Party for <%= params[:movie_title] %></h1>
+
 <%= form_with url: user_path(@user), local: true do |form|  %>
   <%= hidden_field_tag :movie_title, params[:movie_title] %>
   <%= form.label :duration %>
@@ -6,7 +7,7 @@
 
   <div id="date">
     <%= form.label :date %>
-    <%= form.date_select :date %>
+    <%= form.date_select :date, start_year: Date.today.year %>
   </div>
 
   <%= form.label :time %>
