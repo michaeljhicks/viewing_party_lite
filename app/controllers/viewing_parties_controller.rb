@@ -1,5 +1,5 @@
 class ViewingPartiesController < ApplicationController
-  before_action :all_users, only: %i[new]
+  before_action :all_users, only: [:new]
 
   def new
     @user = User.find(params[:user_id])
