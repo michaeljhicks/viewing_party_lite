@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'The movie details page' do
   before do
-    @user = User.create!(name: 'Brylan', email: 'brylan.gannon112@gmail.com')
+    @user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com')
     @movie_id = 550
     visit user_movie_path(@user,@movie_id)
   end
