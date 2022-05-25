@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'The movie results page' do
   before do
-    @user = User.create!(name: 'Brylan', email: 'brylan.gannon112@gmail.com')
+    @user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com')
     visit "/users/#{@user.id}/discover"
   end
 
