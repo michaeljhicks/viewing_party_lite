@@ -1,13 +1,6 @@
 require 'rails_helper'
 RSpec.describe MovieService do
   describe 'instance methods' do
-    it '.get_url(url) returns an array with a ruby hash' do
-      service = MovieService.new
-      response = service.get_url('https://api.coinbase.com/v2/currencies')
-
-      expect(response[:data]).to be_a(Array)
-      expect(response[:data][0]).to be_a(Hash)
-    end
 
     it '.top_movies returns an array with 40 movie hashes' do
       service = MovieService.new
@@ -17,6 +10,7 @@ RSpec.describe MovieService do
       expect(response).to be_all(Hash)
       expect(response[0][:original_title]).to be_a(String)
     end
+    
     it '.movies_by_query(query) returns the first 40 movies with titles that include the query' do
       service = MovieService.new
       response = service.movies_by_query('mad')
@@ -25,7 +19,8 @@ RSpec.describe MovieService do
       expect(response.length).to eq(40)
       expect(check_all_titles_for_query).to be_all(true)
     end
-    it '.movie_info(movie_id) returns info of a given movie_id' do
+
+    it '.movie_details(movie_id) returns info of a given movie_id' do
       service = MovieService.new
       movie_id = 550
       response = service.movie_details(movie_id)

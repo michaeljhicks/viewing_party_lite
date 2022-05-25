@@ -6,19 +6,24 @@ RSpec.describe 'create a new viewing party' do
     @user2 = User.create!(name: 'John', email: 'John.Hennerich@gmail.com')
     @movie_id = 550
     visit user_movie_path(@user,@movie_id)
+
     click_on 'Create Viewing Party'
   end
+
   context 'When vailid data is entered' do
     it 'Creates a viewing party ' do
       expect(page).to have_field(:duration, with: '139')
+
       within '#date' do
         select '2022'
         select 'May'
         select '12'
       end
+
       within '#_time_4i' do
         select '07'
       end
+
       within '#_time_5i' do
         select '00'
       end

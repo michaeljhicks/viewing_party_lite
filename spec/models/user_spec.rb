@@ -1,17 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe User do
-  context 'validations' do
+  describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :email }
     it { should validate_uniqueness_of :email }
   end
-  context 'relationships' do
+
+  describe 'relationships' do
     it { should have_many(:party_users) }
     it { should have_many(:viewing_parties).through(:party_users) }
   end
 
-  context 'instance methods' do
+  describe 'instance methods' do
     it '.is_host?(party_id) returns true or false if the user is host' do
       user = User.create!(name: 'Brylan', email: 'brylan.gannon112@gmail.com')
       user2 = User.create!(name: 'John', email: 'John.Hennerich@gmail.com')
