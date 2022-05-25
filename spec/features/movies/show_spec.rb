@@ -1,16 +1,22 @@
 require 'rails_helper'
 
 describe 'The movie details page' do
-  before do
+  before(:each) do
     @user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com', password: 'test', password_confirmation: 'test')
     @movie_id = 550
-    visit user_movie_path(@user,@movie_id)
+
+    visit '/'
+    click_on 'Login'
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+    click_on 'Login'
+    visit "/dashboard/movies/#{@movie_id}"
   end
 
   it 'displays a link to create a new viewing party' do
     click_on 'Create Viewing Party'
 
-    expect(current_path).to eq(new_user_movie_viewing_party_path(@user, @movie_id))
+    expect(current_path).to eq("/dashboard/movies/#{@movie_id}/new")
   end
 
   it 'displays movie details for movie' do

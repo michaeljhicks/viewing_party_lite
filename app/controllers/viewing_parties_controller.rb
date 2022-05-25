@@ -2,11 +2,11 @@ class ViewingPartiesController < ApplicationController
   before_action :all_users, only: %i[new]
 
   def new
-    @user = User.find(params[:user_id])
+    @user = User.find(session[:user_id])
   end
 
   def create
-    host_user = User.find(params[:id])
+    host_user = User.find(session[:id])
     party = ViewingParty.create!(
       duration: params[:duration],
       date: "#{params['date(1i)']}/#{params['date(2i)']}/#{params['date(3i)']}",
@@ -20,7 +20,7 @@ class ViewingPartiesController < ApplicationController
         PartyUser.create!(user_id: user.id, viewing_party_id: party.id)
       end
     end
-    redirect_to user_path(host_user)
+    redirect_to dashboard_path
   end
 
   private

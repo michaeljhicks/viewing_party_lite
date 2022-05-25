@@ -1,12 +1,13 @@
 require 'rails_helper'
-describe 'Creating a user' do
-  before :each do
+
+RSpec.describe 'Creating a user' do
+  before(:each) do
     visit '/register'
 
     @user = User.create!(name: 'Billy Zane', email: 'billy.zane@gmail.com', password: 'test', password_confirmation: 'test')
   end
 
-  context 'when valid data is entered' do
+  describe 'when valid data is entered' do
     it 'creates a user' do
       fill_in :name, with: 'Billy Zane'
       fill_in :email, with: 'billy.zaners@gmail.com'
@@ -15,10 +16,10 @@ describe 'Creating a user' do
       click_button 'Register'
 
       user = User.last
-      expect(current_path).to eq(user_path(user))
+      expect(current_path).to eq(dashboard_path)
     end
   end
-  context 'when invalid data is entered' do
+  describe 'when invalid data is entered' do
     it 'email must be unique' do
       fill_in :name, with: 'Phil'
       fill_in :email, with: 'billy.zane@gmail.com'
