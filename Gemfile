@@ -36,6 +36,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'pry'
   gem 'figaro'
 end
@@ -55,6 +57,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
   gem 'orderly'
+  gem 'vcr', '~> 6.1.0'
 end
 
 
