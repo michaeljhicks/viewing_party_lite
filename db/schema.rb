@@ -10,19 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_095750) do
+ActiveRecord::Schema.define(version: 2023_04_18_163826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "party_users", force: :cascade do |t|
+  create_table "user_parties", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "viewing_party_id"
-    t.boolean "host", default: false
+    t.boolean "host"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_party_users_on_user_id"
-    t.index ["viewing_party_id"], name: "index_party_users_on_viewing_party_id"
+    t.index ["user_id"], name: "index_user_parties_on_user_id"
+    t.index ["viewing_party_id"], name: "index_user_parties_on_viewing_party_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,14 +34,14 @@ ActiveRecord::Schema.define(version: 2022_05_25_095750) do
   end
 
   create_table "viewing_parties", force: :cascade do |t|
-    t.datetime "date"
-    t.string "start_time"
-    t.string "movie_title"
+    t.integer "movie_id"
     t.integer "duration"
+    t.date "date"
+    t.time "start_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "party_users", "users"
-  add_foreign_key "party_users", "viewing_parties"
+  add_foreign_key "user_parties", "users"
+  add_foreign_key "user_parties", "viewing_parties"
 end

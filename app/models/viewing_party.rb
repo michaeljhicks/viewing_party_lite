@@ -1,9 +1,10 @@
 class ViewingParty < ApplicationRecord
-  validates :date, presence: true
-  validates :start_time, presence: true
-  validates :duration, presence: true
-  validates :movie_title, presence: true
+  has_many :user_parties
+  has_many :users, through: :user_parties
 
-  has_many :party_users
-  has_many :users, through: :party_users
+  validates_presence_of :movie_id, :duration, :date, :start_time
+
+  def movie_data
+    MovieFacade.movie_id_search(movie_id)
+  end
 end
