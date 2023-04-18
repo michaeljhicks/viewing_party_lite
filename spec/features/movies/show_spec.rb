@@ -31,7 +31,7 @@ RSpec.describe 'movie show page' do
     visit movie_path(@movie1.id)
   end
   
-  xit 'has a button to create a viewing party', :vcr do
+  it 'has a button to create a viewing party', :vcr do
     click_button('Create Viewing Party for Scarface')
   end
   
@@ -39,8 +39,8 @@ RSpec.describe 'movie show page' do
     expect(page).to have_content('Scarface')
   end
   
-  xit "display's the movie's vote average", :vcr do
-    expect(page).to have_content('Vote Average: 8.2')
+  it "display's the movie's vote average", :vcr do
+    expect(page).to have_content('Vote Average: 8.166')
   end
   
   it "displays the movie's runtime", :vcr do

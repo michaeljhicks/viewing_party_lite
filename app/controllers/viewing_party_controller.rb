@@ -15,7 +15,7 @@ class ViewingPartyController < ApplicationController
       params[:user].each do |invitee|
         UserParty.create!(user_id: invitee, viewing_party_id: @vp.id, host: false)
       end
-      redirect_to users_path(@user)
+      redirect_to dashboard_path
   end
 
   private
