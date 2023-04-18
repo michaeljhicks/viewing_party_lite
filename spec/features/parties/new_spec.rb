@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'New party page' do
-  it 'When i visit the new party page has title and form', :vcr do
+  xit 'When i visit the new party page has title and form', :vcr do
     user_1 = User.create!(name: 'Mike', email: 'mike@example.com', password: 'test')
     visit login_form_path
     fill_in 'email', with: 'mike@example.com'

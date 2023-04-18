@@ -1,0 +1,72 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.themoviedb.org/3/movie/22?api_key=<movie_api_key>
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - Faraday v2.3.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json;charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Tue, 18 Apr 2023 16:46:58 GMT
+      Server:
+      - openresty
+      Cache-Control:
+      - public, max-age=22541
+      X-Memc:
+      - HIT
+      X-Memc-Key:
+      - 9da024d74cb7b960c79ba354f2dd754d
+      X-Memc-Age:
+      - '17145'
+      X-Memc-Expires:
+      - '5352'
+      Etag:
+      - W/"91f98fd86738237c089c7b2c4def63e3"
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Cache:
+      - Hit from cloudfront
+      Via:
+      - 1.1 befcfd7ee847a3c890471f27612dbcde.cloudfront.net (CloudFront)
+      X-Amz-Cf-Pop:
+      - DEN52-P2
+      Alt-Svc:
+      - h3=":443"; ma=86400
+      X-Amz-Cf-Id:
+      - 60F_uP2UUXL8jPxA01YZawm0cps1N1xvij1QS9xRuIR46KZ0k3PXPw==
+      Age:
+      - '250'
+    body:
+      encoding: ASCII-8BIT
+      string: '{"adult":false,"backdrop_path":"/wW7Wt5bXzPy4VOEE4LTIUDyDgBo.jpg","belongs_to_collection":{"id":295,"name":"Pirates
+        of the Caribbean Collection","poster_path":"/p9fXIvNppK21fCHAEkznSZb8hnv.jpg","backdrop_path":"/wxgD3fB5lQ2sGJLog0rvXW049Pf.jpg"},"budget":140000000,"genres":[{"id":12,"name":"Adventure"},{"id":14,"name":"Fantasy"},{"id":28,"name":"Action"}],"homepage":"https://movies.disney.com/pirates-of-the-caribbean-the-curse-of-the-black-pearl","id":22,"imdb_id":"tt0325980","original_language":"en","original_title":"Pirates
+        of the Caribbean: The Curse of the Black Pearl","overview":"Jack Sparrow,
+        a freewheeling 18th-century pirate, quarrels with a rival pirate bent on pillaging
+        Port Royal. When the governor''s daughter is kidnapped, Sparrow decides to
+        help the girl''s love save her.","popularity":165.599,"poster_path":"/z8onk7LV9Mmw6zKz4hT6pzzvmvl.jpg","production_companies":[{"id":2,"logo_path":"/wdrCwmRnLFJhEoH8GSfymY85KHT.png","name":"Walt
+        Disney Pictures","origin_country":"US"},{"id":130,"logo_path":"/c9dVHPOL3cqCr2593Ahk0nEKTEM.png","name":"Jerry
+        Bruckheimer Films","origin_country":"US"}],"production_countries":[{"iso_3166_1":"US","name":"United
+        States of America"}],"release_date":"2003-07-09","revenue":655011224,"runtime":143,"spoken_languages":[{"english_name":"English","iso_639_1":"en","name":"English"}],"status":"Released","tagline":"Prepare
+        to be blown out of the water.","title":"Pirates of the Caribbean: The Curse
+        of the Black Pearl","video":false,"vote_average":7.8,"vote_count":18634}'
+  recorded_at: Tue, 18 Apr 2023 16:51:08 GMT
+recorded_with: VCR 6.1.0

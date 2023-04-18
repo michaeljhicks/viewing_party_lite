@@ -1,28 +1,35 @@
-class MovieService < ApplicationService
-  def top_movies
-    page1 = conn.get('/3/movie/popular')
-    page2 = conn.get('/3/movie/popular?page=2')
-    parse_json(page1)[:results] + parse_json(page2)[:results]
+# frozen_string_literal: true
+
+class MovieService
+  def self.conn
+    Faraday.new(url: 'https://api.themoviedb.org/3/') do |faraday|
+      faraday.params['api_key'] = ENV['movie_api_key']
+      faraday.adapter Faraday.default_adapter
+    end
   end
 
-  def movies_by_query(search)
-    page1 = conn.get("/3/search/movie?query=#{search}")
-    page2 = conn.get("/3/search/movie?query=#{search}&page=2")
-    parse_json(page1)[:results] + parse_json(page2)[:results]
+  def self.top_rated
+    response = conn.get('movie/top_rated')
+    json = JSON.parse(response.body, symbolize_names: true)
   end
 
-  def movie_details(movie_id)
-    response = conn.get("/3/movie/#{movie_id}")
-    parse_json(response)
+  def self.movie_title_search(query)
+    response = conn.get("search/movie?query=#{query}")
+    json = JSON.parse(response.body, symbolize_names: true)
   end
 
-  def cast(movie_id)
-    response = conn.get("/3/movie/#{movie_id}/credits")
-    parse_json(response)[:cast]
+  def self.movie_id_search(id)
+    response = conn.get("movie/#{id}")
+    json = JSON.parse(response.body, symbolize_names: true)
+  end
+  
+  def self.movie_reviews(id)
+    response = conn.get("movie/#{id}/reviews")
+    json = JSON.parse(response.body, symbolize_names: true)
   end
 
-  def reviews(movie_id)
-    response = conn.get("/3/movie/#{movie_id}/reviews")
-    parse_json(response)[:results]
+  def self.movie_cast(id)
+    response = conn.get("movie/#{id}/credits")
+    json = JSON.parse(response.body, symbolize_names: true)
   end
 end

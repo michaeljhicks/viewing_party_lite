@@ -1,28 +1,32 @@
 require 'rails_helper'
 
-RSpec.describe User do
+RSpec.describe User, type: :model do
+  describe 'relationships' do
+    it { should have_many :user_parties }
+    it { should have_many(:viewing_parties).through(:user_parties) }
+  end
+
   describe 'validations' do
     it { should validate_presence_of :name }
     it { should validate_presence_of :email }
     it { should validate_uniqueness_of :email }
+    it { should validate_presence_of :password_digest }
+    it { should have_secure_password }
   end
 
-  describe 'relationships' do
-    it { should have_many(:party_users) }
-    it { should have_many(:viewing_parties).through(:party_users) }
-  end
+  describe 'user creation' do 
+    it 'encrypts password' do 
+      user = User.create(name: 'Mike', email: 'mike@test.com', password: 'password123', password_confirmation: 'password123')
 
-  describe 'instance methods' do
-    it '.is_host?(party_id) returns true or false if the user is host' do
-      user = User.create!(name: 'Jackie', email: 'jackie.brown@gmail.com', password: 'test', password_confirmation: 'test')
-      user2 = User.create!(name: 'Billy', email: 'billy.zane@gmail.com', password: 'test', password_confirmation: 'test')
-      party = ViewingParty.create!(movie_title: 'Mad Max', duration: 100, date: '2022/10/20', start_time: '7:00')
+      expect(user).to_not have_attribute(:password)
+      expect(user.password_digest).to_not eq('password123')
+    end
 
-      PartyUser.create!(user_id: user.id, viewing_party_id: party.id, host: true)
-      PartyUser.create!(user_id: user2.id, viewing_party_id: party.id)
+    it 'creates a user when email is unique and passwords match' do 
+      user = User.create(name: 'Mike', email: 'mike@test.com', password: 'password123', password_confirmation: 'password123')
 
-      expect(user.is_host?(party.id)).to be true
-      expect(user2.is_host?(party.id)).to be false
+      expect(user).to be_instance_of User
+      expect(User.last.name).to eq(user.name)
     end
   end
 end

@@ -1,27 +1,70 @@
-<h1><%= @user.name %>'s dashboard </h1>
-<%= button_to "Discover Movies", "/users/#{@user.id}/discover", method: :get %>
-<hr>
-<h2>Viewing Parties</h2>
-<% @user.viewing_parties.each do |party| %>
-  <div id="viewing-party-<%= party.id %>">
-    <h3><%= party.movie_title %></h3>
-    <p><%= party.date.strftime('%B %d, %Y') %></p>
-    <p><%= party.duration %></p>
-    <p><%= party.start_time %></p>
-    <% if @user.is_host?(party.id) %>
-      <p>Hosting</p>
-    <% else %>
-      <p>Invited</p>
-    <% end %>
-    <ul>
-    <p>Users Invited:</p>
-    <% party.users.each do |user| %>
-      <% if user.name == @user.name %>
-        <li> <strong><%= user.name %></strong></li>
-      <% else %>
-        <li><%= user.name %></li>
-      <% end %>
-    <% end %>
-    </ul>
+<p>
+<div class="container">
+  <h1 align="center">
+    <%= @user.name %>'s Dashboard
+  </h1>
+</div>
+</p>
+<p>
+<div class="container" align="center" id="discover_movies">
+  <%= button_to("Discover Movies", discover_index_path, method: :get)%>
+</div>
+</p>
+<p>
+<div class="container" align="center" id="viewing_parties">
+  <div class="col-md-12 text-center">
+    <h2>Viewing Parties</h2>
+    <div class="card-deck ">
+      <% @user.viewing_parties.each do |vp| %>
+        <div class="card-block">
+          <div class="card mb-3 col-lg-4 d-flex align-items-stretch" style="max-width: 25rem;" id="<%= vp.id %>">
+            <div class="card-title">
+              <h4>
+                <%= link_to vp.movie_data.title, movie_path(vp.movie_data.id)%>
+              </h4>
+              <% @user.user_parties.each do |user_party| %>
+                <% if user_party.viewing_party_id==vp.id %>
+                  <h5>Hosting</h5>
+                  <% else %>
+                    <h5>Invited</h5>
+                    <% end %>
+                      <% end %>
+            </div>
+            <div class="card-body">
+              <img class="card-img-top" src=<%="https://image.tmdb.org/t/p/original/#{vp.movie_data.poster}" %>>
+              <p class="card-text">
+              <ul class="host list-group">
+                <li class="list-group-item"> Date: <%= vp.date %>
+                </li>
+                <li class="list-group-item">Time: <%= vp.start_time.strftime("%l:%M%p") %>
+                </li>
+              </ul>
+              <ul class="list-group">
+                <div class="d-flex justify-content-center">
+                  <h5>Invited Guests</h5>
+                </div>
+                <div class="invited">
+                  <% vp.user_parties.each do |party| %>
+                    <% if party.host==true %>
+                      Host: <%= party.user.name %> <br>
+                        <% else %>
+                          <% if party.user.email==@user.email %>
+                            Invitee: <b>
+                              <%= party.user.name %>
+                            </b> <br>
+                            <% else %>
+                              Invitee: <%= party.user.name %> <br>
+                                <% end %>
+                                  <% end %>
+                                    <% end %>
+                </div>
+              </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+    </div>
   </div>
-<% end %>
+</div>
+</p>

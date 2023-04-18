@@ -1,44 +1,68 @@
 require 'rails_helper'
+
 RSpec.describe MovieService do
-  describe 'instance methods' do
+  context 'class methods' do
+    context '#top_rated' do
+      it 'returns top rated movies', :vcr do
+        search = MovieService.top_rated
+        expect(search).to be_a Hash
+        expect(search[:results]).to be_an Array
+        movie_data = search[:results].first
 
-    it '.top_movies returns an array with 40 movie hashes' do
-      service = MovieService.new
-      response = service.top_movies
+        expect(movie_data).to have_key(:id)
+        expect(movie_data[:id]).to be_a(Integer)
 
-      expect(response.length).to eq(40)
-      expect(response).to be_all(Hash)
-      expect(response[0][:original_title]).to be_a(String)
+        expect(movie_data).to have_key(:title)
+        expect(movie_data[:title]).to be_a(String)
+
+        expect(movie_data[:runtime]).to be(nil)
+
+        expect(movie_data).to have_key(:vote_average)
+        expect(movie_data[:vote_average]).to be_a(Float)
+      end
     end
-    
-    it '.movies_by_query(query) returns the first 40 movies with titles that include the query' do
-      service = MovieService.new
-      response = service.movies_by_query('mad')
-      all_titles = response.map { |movie| movie[:original_title] }
-      check_all_titles_for_query = all_titles.map { |title| title.downcase.include?('mad') }
-      expect(response.length).to eq(40)
-      expect(check_all_titles_for_query).to be_all(true)
+    context '#movie_title_search(query)' do
+      it 'returns movies based on title provided from user', :vcr do
+        search = MovieService.movie_title_search('Avengers')
+        expect(search).to be_a Hash
+        expect(search[:results]).to be_an Array
+        movie_data = search[:results].first
+
+        expect(movie_data).to have_key(:id)
+        expect(movie_data[:id]).to be_a(Integer)
+
+        expect(movie_data).to have_key(:title)
+        expect(movie_data[:title]).to be_a(String)
+
+        expect(movie_data[:runtime]).to be(nil)
+
+        expect(movie_data).to have_key(:vote_average)
+        expect(movie_data[:vote_average]).to be_a(Float)
+      end
     end
+    context '#movie_id_search(id)' do
+      it 'returns a single movie based on id', :vcr do
+        search = MovieService.movie_id_search(111)
+        expect(search).to be_a Hash
+        movie_data = search
 
-    it '.movie_details(movie_id) returns info of a given movie_id' do
-      service = MovieService.new
-      movie_id = 550
-      response = service.movie_details(movie_id)
+        expect(movie_data).to have_key(:id)
+        expect(movie_data[:id]).to be_a(Integer)
 
-      expect(response).to be_a(Hash)
-      expect(response).to have_key(:original_title)
-      expect(response[:original_title]).to be_a(String)
-    end
+        expect(movie_data).to have_key(:title)
+        expect(movie_data[:title]).to be_a(String)
 
-    it '.cast returns an array of hashes' do
-      service = MovieService.new
-      response = service.cast(550)
+        expect(movie_data[:runtime]).to be(170)
 
-      expect(response).to be_a(Array)
-      expect(response).to be_all(Hash)
+        expect(movie_data).to have_key(:vote_average)
+        expect(movie_data[:vote_average]).to be_a(Float)
 
-      expect(response[0]).to have_key(:name)
-      expect(response[0]).to have_key(:character)
+        expect(movie_data).to have_key(:genres)
+        expect(movie_data[:genres]).to be_an(Array)
+
+        expect(movie_data).to have_key(:overview)
+        expect(movie_data[:overview]).to be_a(String)
+      end
     end
   end
 end

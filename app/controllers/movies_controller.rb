@@ -1,20 +1,32 @@
 class MoviesController < ApplicationController
-  before_action :get_user, only: %i[index show]
+  before_action :find_user_and_movie, only: [:show]
+  before_action :find_reviews_and_cast, only: [:show]
+  before_action :find_user, only: [:index]
 
   def index
-    if params[:query] == 'top40rated'
-      @movies = MovieFacade.top_rated
-    elsif params[:query]
-      @movies = MovieFacade.find_movies(params[:query])
+    case params[:query]
+    when 'top_rated'
+      @data = MovieFacade.top_rated
+    when 'movie_search'
+      @data = MovieFacade.movie_title_search(params[:search])
     end
   end
 
-  def show
-    @movie = MovieFacade.movie_info(params[:id])
-  end
+  def show; end
 
   private
-    def get_user
-      @user = User.find(session[:user_id])
-    end
+
+  def find_user_and_movie
+    @movie = MovieFacade.movie_id_search(params[:id])
+    @user = User.find(session[:user_id]) if session[:user_id]
+  end
+
+  def find_reviews_and_cast
+    @reviews = MovieFacade.movie_reviews(params[:id])
+    @cast = MovieFacade.movie_cast(params[:id])
+  end
+
+  def find_user
+    @user = User.find(session[:user_id]) if session[:user_id]
+  end
 end
