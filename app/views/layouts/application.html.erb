@@ -6,6 +6,7 @@
   <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
       <%= link_to "Home" , "/" %>
+      <%= link_to "Dashboard", dashboard_path %>
         <% if current_user %>
           <div align="right">
             <%= button_to("Logout", logout_path, method: :delete) %>
